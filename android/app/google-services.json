@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426096691148",
+    "project_id": "zeraty-87ea1",
+    "storage_bucket": "zeraty-87ea1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426096691148:android:f6737ff9242a953cc4bf69",
+        "android_client_info": {
+          "package_name": "com.agri.zeraty"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByzWaEeauVlQ-0d2qcOXso8Yv5dcMeb9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
