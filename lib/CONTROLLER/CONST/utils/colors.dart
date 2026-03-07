@@ -22,4 +22,9 @@ class ColorsApp {
   static const Color buttonsColor = Color(0xffDFB6B2);
   static const Color textDarkColor = Color(0xff364153);
   static const Color titleColor = Color(0xff333333);
+
+  static const Color successColor = Color(0xff00C896);
+  static const Color errorColor = Color(0xffFF5C7A);
+  static const Color warningColor = Color(0xffCF9D4C);
+  static const Color infoColor = Color(0xff5B9EFF);
 }

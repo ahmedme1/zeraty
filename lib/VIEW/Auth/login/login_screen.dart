@@ -70,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                                   ImagesApp.phone,
                                   fit: BoxFit.scaleDown,
                                 ),
-                                inputFormatters: egyptPhoneInputFormatters,
+                                // inputFormatters: egyptPhoneInputFormatters,
                               ),
 
                               text(

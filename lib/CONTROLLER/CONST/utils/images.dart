@@ -23,6 +23,7 @@ class ImagesApp {
   static const String search = 'assets/images/search.svg';
   static const String send = 'assets/images/send.svg';
   static const String support = 'assets/images/support.svg';
+  static const String deleteAccount = 'assets/images/delete_account.svg';
   static const String whosUs = 'assets/images/whosUs.svg';
   static const String close = 'assets/images/close.svg';
   static const String email = 'assets/images/email.svg';

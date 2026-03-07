@@ -59,9 +59,12 @@ class LoginController extends GetxController {
   void validationDateAndLogin() {
     final phone = phoneController.text.trim();
     final password = passwordController.text.trim();
+    final egyptPhone = RegExp(r'^(010|011|012|015)[0-9]{8}$');
 
     if (phone.isEmpty) {
       CustomSnackbar.warning('برجاء كتابة رقم الهاتف'.tr);
+    } else if (!egyptPhone.hasMatch(phone)) {
+      CustomSnackbar.warning('اكتب رقم الهاتف بشكل صحيح'.tr);
     } else if (password.isEmpty) {
       CustomSnackbar.warning('برجاء كتابة كلمة المرور'.tr);
     } else if (password.length < 8) {
