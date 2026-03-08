@@ -1,6 +1,7 @@
 import 'package:zeraytee/CONTROLLER/CONST/Imports/controller.dart';
 import 'package:zeraytee/CONTROLLER/CONST/Imports/packages.dart';
 import 'package:zeraytee/CONTROLLER/CONST/Imports/view.dart';
+import 'package:zeraytee/VIEW/Contact/delete_account_screen.dart';
 
 class DrawerContent extends StatelessWidget {
   DrawerContent({super.key});
@@ -201,6 +202,17 @@ class DrawerContent extends StatelessWidget {
                               }
                             },
                           ),
+                          DrawerItem(
+                            title: 'حذف الحساب',
+                            icon: ImagesApp.deleteAccount,
+                            isCategory: false,
+                            onTap: () {
+                              Get.to(
+                                () => const DeleteAccountScreen(),
+                                transition: Transition.fadeIn,
+                              );
+                            },
+                          ),
                         ],
                       );
                     }),
@@ -263,6 +275,8 @@ class DrawerItem extends StatelessWidget {
                     ),
                     child: SvgPicture.asset(
                       icon!,
+                      fit: BoxFit.scaleDown,
+                      height: 25.h,
                       colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
                     ),
                   ),

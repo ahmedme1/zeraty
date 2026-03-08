@@ -36,8 +36,13 @@ class OrderDetailsScreen extends StatelessWidget {
                     SizedBox(height: 16.h),
                     OrderStatus(order: order),
                     SizedBox(height: 16.h),
-                    if (order.status == 'processing' && !order.isReceiptUploaded)
-                      ProcessingPaymentBanner(orderId: order.id),
+                    if (order.status == 'processing' && !order.isReceiptUploaded) ...[
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: ProcessingPaymentBanner(orderId: order.id),
+                      ),
+                      SizedBox(height: 16.h),
+                    ],
 
                     if (order.status == 'processing' && order.isReceiptUploaded) ...[
                       Padding(
