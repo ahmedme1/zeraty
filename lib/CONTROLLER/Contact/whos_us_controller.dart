@@ -14,7 +14,7 @@ class AboutUsController extends GetxController {
 
   final List<FAQItem> faqItems = [
     FAQItem(
-      question: 'عن زراعي',
+      question: 'عن زراعتي',
       answer:
           'نحن شركة رائدة في مجال التجارة الإلكترونية، نقدم أفضل المنتجات والخدمات لعملائنا. نسعى دائماً لتوفير تجربة تسوق مميزة وآمنة.',
       icon: ImagesApp.info2,

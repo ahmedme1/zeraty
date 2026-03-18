@@ -9,6 +9,7 @@ class ImagesApp {
   static const String cart = 'assets/images/cart.svg';
   static const String chat = 'assets/images/chat.svg';
   static const String favorite = 'assets/images/favorite.svg';
+  static const String order = 'assets/images/order.svg';
   static const String gallery = 'assets/images/gallery.svg';
   static const String home = 'assets/images/home.svg';
   static const String location = 'assets/images/location.svg';

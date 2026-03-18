@@ -30,7 +30,9 @@ class CartScreen extends StatelessWidget {
             body: CheckLogin(
               child: Obx(() {
                 if (controller.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(
+                    child: SpinKitCircle(color: ColorsApp.primaryGreenColor, size: 40),
+                  );
                 }
 
                 if (controller.cartItems.isEmpty) {
@@ -180,149 +182,156 @@ class CartScreen extends StatelessWidget {
   }
 
   Widget _buildCartItem(CartItemModel item, CartController controller) {
-    return Padding(
-      padding: EdgeInsets.all(16.w),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12.r),
-            child: item.product.image != null
-                ? CachedNetworkImage(
-                    imageUrl: item.product.image!,
-                    width: 80.w,
-                    height: 80.h,
-                    fit: BoxFit.cover,
-                    errorWidget: (context, error, stackTrace) {
-                      return Container(
-                        width: 80.w,
-                        height: 80.h,
-                        color: Colors.grey.shade200,
-                        child: Icon(Icons.image, size: 40.sp, color: Colors.grey),
-                      );
-                    },
-                  )
-                : Container(
-                    width: 80.w,
-                    height: 80.h,
-                    color: Colors.grey.shade200,
-                    child: Icon(Icons.image, size: 40.sp, color: Colors.grey),
-                  ),
-          ),
-          SizedBox(width: 12.w),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                text(
-                  title: item.product.name,
-                  color: ColorsApp.secondaryBrownColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-                SizedBox(height: 4.h),
-                text(
-                  title: item.product.description,
-                  color: Colors.grey.shade600,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.normal,
-                  textAlign: TextAlign.start,
-                ),
-                SizedBox(height: 8.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      switchInCurve: Curves.easeInOut,
-                      switchOutCurve: Curves.easeInOut,
-                      transitionBuilder: (Widget child, Animation<double> animation) {
-                        final offsetAnimation = Tween<Offset>(
-                          begin: const Offset(0, -0.5),
-                          end: Offset.zero,
-                        ).animate(animation);
-
-                        return SlideTransition(
-                          position: offsetAnimation,
-                          child: FadeTransition(opacity: animation, child: child),
+    return GestureDetector(
+      onTap: () => Get.to(
+        () => ProductDetailsScreen(productId: item.product.id),
+        transition: Transition.fadeIn,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16.w),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: item.product.image != null
+                  ? CachedNetworkImage(
+                      imageUrl: item.product.image!,
+                      width: 80.w,
+                      height: 80.h,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, error, stackTrace) {
+                        return Container(
+                          width: 80.w,
+                          height: 80.h,
+                          color: Colors.grey.shade200,
+                          child: Icon(Icons.image, size: 40.sp, color: Colors.grey),
                         );
                       },
-                      child: Row(
-                        key: ValueKey<double>(item.subtotal),
+                    )
+                  : Container(
+                      width: 80.w,
+                      height: 80.h,
+                      color: Colors.grey.shade200,
+                      child: Icon(Icons.image, size: 40.sp, color: Colors.grey),
+                    ),
+            ),
+            SizedBox(width: 12.w),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  text(
+                    title: item.product.name,
+                    color: ColorsApp.secondaryBrownColor,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  SizedBox(height: 4.h),
+                  text(
+                    title: item.product.description,
+                    color: Colors.grey.shade600,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.normal,
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 8.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        switchInCurve: Curves.easeInOut,
+                        switchOutCurve: Curves.easeInOut,
+                        transitionBuilder: (Widget child, Animation<double> animation) {
+                          final offsetAnimation = Tween<Offset>(
+                            begin: const Offset(0, -0.5),
+                            end: Offset.zero,
+                          ).animate(animation);
+
+                          return SlideTransition(
+                            position: offsetAnimation,
+                            child: FadeTransition(opacity: animation, child: child),
+                          );
+                        },
+                        child: Row(
+                          key: ValueKey<double>(item.subtotal),
+                          children: [
+                            text(
+                              title: item.subtotal.toStringAsFixed(0),
+                              color: ColorsApp.primaryGreenColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            SizedBox(width: 4.w),
+                            text(
+                              title: 'ج',
+                              color: ColorsApp.primaryGreenColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
                         children: [
+                          InkWell(
+                            onTap: () => controller.decreaseQuantity(item.id, item.quantity),
+                            child: Container(
+                              width: 32.w,
+                              height: 32.h,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                borderRadius: BorderRadius.circular(8.r),
+                                border: Border.all(color: Colors.grey.shade300),
+                              ),
+                              child: Icon(
+                                Icons.remove,
+                                size: 16.sp,
+                                color: ColorsApp.secondaryBrownColor,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 12.w),
                           text(
-                            title: item.subtotal.toStringAsFixed(0),
-                            color: ColorsApp.primaryGreenColor,
+                            title: item.quantity.toString(),
+                            color: ColorsApp.secondaryBrownColor,
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(width: 4.w),
-                          text(
-                            title: 'ج',
-                            color: ColorsApp.primaryGreenColor,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
+                          SizedBox(width: 12.w),
+                          InkWell(
+                            onTap: () => controller.increaseQuantity(item.id, item.quantity),
+                            child: Container(
+                              width: 32.w,
+                              height: 32.h,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    ColorsApp.primaryGreenColor,
+                                    ColorsApp.secondaryBrownColor,
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
+                              child: Icon(Icons.add, size: 16.sp, color: Colors.white),
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                    Row(
-                      children: [
-                        InkWell(
-                          onTap: () => controller.decreaseQuantity(item.id, item.quantity),
-                          child: Container(
-                            width: 32.w,
-                            height: 32.h,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.circular(8.r),
-                              border: Border.all(color: Colors.grey.shade300),
-                            ),
-                            child: Icon(
-                              Icons.remove,
-                              size: 16.sp,
-                              color: ColorsApp.secondaryBrownColor,
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 12.w),
-                        text(
-                          title: item.quantity.toString(),
-                          color: ColorsApp.secondaryBrownColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        SizedBox(width: 12.w),
-                        InkWell(
-                          onTap: () => controller.increaseQuantity(item.id, item.quantity),
-                          child: Container(
-                            width: 32.w,
-                            height: 32.h,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  ColorsApp.primaryGreenColor,
-                                  ColorsApp.secondaryBrownColor,
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(8.r),
-                            ),
-                            child: Icon(Icons.add, size: 16.sp, color: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(width: 8.w),
-          IconButton(
-            onPressed: () => controller.removeCartItem(item.id),
-            icon: Icon(Icons.delete_outline, color: Colors.red, size: 20.sp),
-          ),
-        ],
+            SizedBox(width: 8.w),
+            IconButton(
+              onPressed: () => controller.removeCartItem(item.id),
+              icon: Icon(Icons.delete_outline, color: Colors.red, size: 20.sp),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -59,46 +59,50 @@ class DrawerContent extends StatelessWidget {
                       ],
                     ),
                     if (getToken().isNotEmpty)
-                      Container(
-                        height: 80.h,
-                        width: double.infinity,
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(horizontal: 10.w),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16.r),
-                          color: ColorsApp.withOpacity(Colors.white, 0.1),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          spacing: 10.w,
-                          children: [
-                            Container(
-                              height: 50.h,
-                              width: 50.w,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: ColorsApp.withOpacity(Colors.white, 0.2),
-                                image: DecorationImage(
-                                  image: getUserImage().isEmpty
-                                      ? AssetImage(ImagesApp.avatar)
-                                      : NetworkImage(getUserImage()),
-                                  fit: BoxFit.cover,
+                      GetBuilder<ProfileController>(
+                        builder: (controller) {
+                          return Container(
+                            height: 80.h,
+                            width: double.infinity,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16.r),
+                              color: ColorsApp.withOpacity(Colors.white, 0.1),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              spacing: 10.w,
+                              children: [
+                                Container(
+                                  height: 50.h,
+                                  width: 50.w,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorsApp.withOpacity(Colors.white, 0.2),
+                                    image: DecorationImage(
+                                      image: getUserImage().isEmpty
+                                          ? AssetImage(ImagesApp.avatar)
+                                          : NetworkImage(getUserImage()),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                Expanded(
+                                  child: text(
+                                    title: getUserName(),
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    textAlign: TextAlign.start,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Expanded(
-                              child: text(
-                                title: getUserName(),
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                textAlign: TextAlign.start,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
                   ],
                 ),
@@ -149,7 +153,13 @@ class DrawerContent extends StatelessWidget {
                               padding: EdgeInsets.symmetric(vertical: 8.h),
                               child: Divider(color: Colors.grey.shade300, thickness: 1),
                             ),
-
+                          DrawerItem(
+                            title: 'المفضلة',
+                            icon: ImagesApp.favorite,
+                            isCategory: false,
+                            onTap: () =>
+                                Get.to(() => FavoriteScreen(), transition: Transition.fade),
+                          ),
                           DrawerItem(
                             title: 'من نحن',
                             icon: ImagesApp.whosUs,
@@ -284,7 +294,7 @@ class DrawerItem extends StatelessWidget {
                   title: title,
                   color: color,
                   fontWeight: isCategory ? FontWeight.w700 : FontWeight.w400,
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                 ),
                 if (isCategory) Icon(Icons.arrow_forward_ios, color: color),
               ],

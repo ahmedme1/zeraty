@@ -61,7 +61,6 @@ class ProfileController extends GetxController {
           final image = response.data["data"]["image_url"];
           CacheHelper.saveData(key: userName, value: name ?? '');
           CacheHelper.saveData(key: userImage, value: image ?? '');
-          printLog(response.data);
           _populateFields();
         }
       }
@@ -170,7 +169,7 @@ class ProfileController extends GetxController {
   Widget currentTabWidget() {
     switch (selectedTabIndex) {
       case 1:
-        return OrdersTab(controller: this);
+        return OrdersTab();
       case 2:
         return AccountTab(controller: this);
       default:

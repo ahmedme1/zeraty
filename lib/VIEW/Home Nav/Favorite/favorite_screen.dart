@@ -14,7 +14,7 @@ class FavoriteScreen extends StatelessWidget {
         return CustomStatusBar(
           child: Scaffold(
             backgroundColor: ColorsApp.backgroundColor,
-            appBar: CustomAppBar(title: 'المفضلة'),
+            appBar: CustomAppBar(title: 'المفضلة', backButton: true),
             body: CheckLogin(
               child: Obx(() {
                 if (controller.isLoading.value) {
@@ -123,7 +123,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 240.h,
+      // height: 240.h,
       width: 165.w,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -174,12 +174,12 @@ class ProductImage extends StatelessWidget {
               ? CachedNetworkImage(
                   imageUrl: image,
                   width: double.infinity,
-                  height: 100.h,
+                  height: 120.h,
                   fit: BoxFit.cover,
                   errorWidget: (context, error, stackTrace) {
                     return Container(
                       width: double.infinity,
-                      height: 100.h,
+                      height: 120.h,
                       color: Colors.grey.shade200,
                       child: Icon(Icons.image, size: 50.sp, color: Colors.grey.shade400),
                     );
@@ -187,7 +187,7 @@ class ProductImage extends StatelessWidget {
                 )
               : Container(
                   width: double.infinity,
-                  height: 100.h,
+                  height: 120.h,
                   color: Colors.grey.shade200,
                   child: Icon(Icons.image, size: 50.sp, color: Colors.grey.shade400),
                 ),
@@ -246,21 +246,21 @@ class ProductContent extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(12.w),
       child: SizedBox(
-        height: 110.h,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             text(title: title, color: Colors.black87, fontSize: 12.sp, fontWeight: FontWeight.bold),
             SizedBox(height: 4.h),
-            text(
-              title: subtitle,
-              color: Colors.grey.shade600,
-              fontSize: 9.sp,
-              fontWeight: FontWeight.normal,
-              textAlign: TextAlign.start,
-            ),
-            SizedBox(height: 8.h),
+            // text(
+            //   title: subtitle,
+            //   color: Colors.grey.shade600,
+            //   fontSize: 9.sp,
+            //   fontWeight: FontWeight.normal,
+            //   textAlign: TextAlign.start,
+            //   overflow: TextOverflow.ellipsis,
+            // ),
+            // SizedBox(height: 8.h),
             PriceSection(price: price),
             SizedBox(height: 8.h),
             if (getToken().isNotEmpty) AddToCartButton(onAdd: onAdd, isInCart: isInCart),

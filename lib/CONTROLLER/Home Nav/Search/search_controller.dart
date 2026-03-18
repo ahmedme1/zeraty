@@ -7,7 +7,7 @@ class SearchControllers extends GetxController {
   final TextEditingController searchTextController = TextEditingController();
 
   String? selectedSearchMethod;
-  final List<String> searchMethods = ['بحث بالاسم', 'بحث بالشركة', 'بحث بالفئة'];
+  final List<String> searchMethods = ['بحث بالاسم', 'بحث بالشركة', 'بحث بالفئة', 'المادة الفعالة'];
 
   final RxList<CategoryModel> categories = <CategoryModel>[].obs;
   final RxList<int> selectedCategoryIds = <int>[].obs;
@@ -82,6 +82,8 @@ class SearchControllers extends GetxController {
       if (searchTextController.text.isNotEmpty) {
         if (selectedSearchMethod == 'بحث بالشركة') {
           queryParams['company_name'] = searchTextController.text;
+        } else if (selectedSearchMethod == 'المادة الفعالة') {
+          queryParams['active_ingredient'] = searchTextController.text;
         } else {
           queryParams['name'] = searchTextController.text;
         }

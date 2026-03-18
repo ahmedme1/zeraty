@@ -12,6 +12,7 @@ class CategoryBasicModel {
 class ProductDetailsModel {
   final int id;
   final String name;
+  final String activeIngredient;
   final String description;
   final String? image;
   final String price;
@@ -27,6 +28,7 @@ class ProductDetailsModel {
   ProductDetailsModel({
     required this.id,
     required this.name,
+    required this.activeIngredient,
     required this.description,
     this.image,
     required this.price,
@@ -44,6 +46,7 @@ class ProductDetailsModel {
     return ProductDetailsModel(
       id: json['id'] ?? 0,
       name: json['name'] ?? '',
+      activeIngredient: json['active_ingredient'] ?? '',
       description: json['description'] ?? '',
       image: json['image'],
       price: json['price'] ?? '0',

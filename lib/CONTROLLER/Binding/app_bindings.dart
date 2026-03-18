@@ -12,6 +12,7 @@ class AppBindings extends Bindings {
     Get.lazyPut(() => FavoriteController(), fenix: true);
     Get.lazyPut(() => CartController(), fenix: true);
     Get.lazyPut(() => ProductController(), fenix: true);
+    Get.lazyPut(() => ProfileController(), fenix: true);
 
     // Get.put(FavoriteController());
   }

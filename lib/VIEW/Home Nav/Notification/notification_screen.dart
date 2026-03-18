@@ -27,8 +27,12 @@ class NotificationScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         if (index == controller.notifications.length) {
                           if (controller.currentPage <= controller.lastPage) {
-                            controller.fetchNotifications();
-                            return const Center(child: CircularProgressIndicator());
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              controller.fetchNotifications();
+                            });
+                            return const Center(
+                              child: SpinKitCircle(color: ColorsApp.primaryGreenColor, size: 40),
+                            );
                           }
                           return const SizedBox.shrink();
                         }

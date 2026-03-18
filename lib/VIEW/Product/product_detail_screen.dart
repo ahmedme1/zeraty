@@ -147,6 +147,8 @@ class _ProductInfoSection extends StatelessWidget {
               fontWeight: FontWeight.normal,
             ),
           ),
+          SizedBox(height: 10.h),
+          ActiveIngredientSection(activeIngredient: product.activeIngredient),
           SizedBox(height: 8.h),
           text(
             title: product.name,
@@ -154,11 +156,12 @@ class _ProductInfoSection extends StatelessWidget {
             fontSize: 24.sp,
             fontWeight: FontWeight.bold,
           ),
-          SizedBox(height: 8.h),
+          SizedBox(height: 10.h),
           text(
             title: product.description,
             color: ColorsApp.textDarkColor,
             fontSize: 16.sp,
+            textAlign: TextAlign.start,
             fontWeight: FontWeight.normal,
           ),
           SizedBox(height: 16.h),
@@ -403,6 +406,68 @@ class ShippingCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ActiveIngredientSection extends StatelessWidget {
+  final String activeIngredient;
+
+  const ActiveIngredientSection({super.key, required this.activeIngredient});
+
+  @override
+  Widget build(BuildContext context) {
+    if (activeIngredient.isEmpty) return const SizedBox.shrink();
+
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(16.r),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: ColorsApp.withOpacity(ColorsApp.primaryGreenColor, 0.15)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 4.w,
+                height: 18.h,
+                decoration: BoxDecoration(
+                  color: ColorsApp.primaryGreenColor,
+                  borderRadius: BorderRadius.circular(4.r),
+                ),
+              ),
+              SizedBox(width: 8.w),
+              text(
+                title: 'المادة الفعالة',
+                fontSize: 15.sp,
+                fontWeight: FontWeight.bold,
+                color: ColorsApp.primaryGreenColor,
+              ),
+            ],
+          ),
+          SizedBox(height: 12.h),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+            decoration: BoxDecoration(
+              color: ColorsApp.withOpacity(ColorsApp.primaryGreenColor, 0.07),
+              borderRadius: BorderRadius.circular(10.r),
+              border: Border.all(color: ColorsApp.withOpacity(ColorsApp.primaryGreenColor, 0.2)),
+            ),
+            child: text(
+              title: activeIngredient,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w500,
+              color: ColorsApp.primaryGreenColor,
+              textAlign: TextAlign.start,
+            ),
+          ),
+        ],
       ),
     );
   }

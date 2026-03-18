@@ -6,17 +6,15 @@ class HomeNavController extends GetxController {
   List<Widget> screenList = [
     HomeScreen(),
     SearchScreen(),
-    FavoriteScreen(),
+    OrdersTab(withScaffold: true),
     CartScreen(),
-    // NotificationScreen(),
     ProfileScreen(),
   ];
   List<Map<String, dynamic>> get items => [
     {'icon': ImagesApp.home, 'label': 'الرئيسية'.tr},
     {'icon': ImagesApp.search, 'label': 'البحث'.tr},
-    {'icon': ImagesApp.favorite, 'label': 'المفضلة'.tr},
+    {'icon': ImagesApp.order, 'label': 'طلباتي'.tr},
     {'icon': ImagesApp.cart, 'label': 'السلة'.tr},
-    // {'icon': ImagesApp.notification, 'label': 'الإشعارات'.tr},
     {'icon': ImagesApp.profile, 'label': 'الشخصي'.tr},
   ];
 
