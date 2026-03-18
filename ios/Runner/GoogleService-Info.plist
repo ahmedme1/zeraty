@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAQ7pLfH_P13vn5ycm3rX5TzG0omzlwr0A</string>
+	<key>GCM_SENDER_ID</key>
+	<string>426096691148</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.agri.zeraty</string>
+	<key>PROJECT_ID</key>
+	<string>zeraty-87ea1</string>
+	<key>STORAGE_BUCKET</key>
+	<string>zeraty-87ea1.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:426096691148:ios:20c39d157fa0c181c4bf69</string>
+</dict>
+</plist>
