@@ -92,3 +92,4 @@ export 'package:zeraytee/VIEW/Order/widget/order_status.dart';
 export 'package:zeraytee/VIEW/Order/widget/order_summary.dart';
 export 'package:zeraytee/VIEW/Order/widget/shipping_info.dart';
 export 'package:zeraytee/VIEW/Home%20Nav/Profile/widget/order/widget/payment_banner.dart';
+export 'package:zeraytee/VIEW/Product/widget/product_card.dart';

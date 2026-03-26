@@ -32,10 +32,17 @@ class AllProductScreen extends StatelessWidget {
           return SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-              child: Wrap(
-                spacing: 8.w,
-                runSpacing: 8.h,
-                children: List.generate(controller.allProduct.length, (index) {
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 8.w,
+                  mainAxisSpacing: 8.h,
+                  childAspectRatio: getChildAspectRatio(),
+                ),
+                itemCount: controller.allProduct.length,
+                itemBuilder: (context, index) {
                   final product = controller.allProduct[index];
                   return GestureDetector(
                     onTap: () => Get.to(
@@ -48,13 +55,14 @@ class AllProductScreen extends StatelessWidget {
                       title: product.name,
                       subtitle: product.description,
                       price: product.finalPrice,
+                      stock: product.stock,
                       isFavorite: product.isFavorite,
                       isInCart: product.isInCart,
                       onFav: () => controller.toggleFavorite(index),
                       onAdd: () => controller.toggleCart(index),
                     ),
                   );
-                }),
+                },
               ),
             ),
           );

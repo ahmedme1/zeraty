@@ -11,6 +11,8 @@ class CompanyProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productController = Get.find<ProductController>();
+
     return GetBuilder<CompanyDetailsController>(
       init: CompanyDetailsController(companyId: companyId),
       builder: (controller) {
@@ -27,6 +29,12 @@ class CompanyProductScreen extends StatelessWidget {
             }
 
             final company = controller.companyDetails.value!;
+
+            // ← هنا: بعد ما isLoading خلص مباشرة، قبل ما الـ grid يتبني
+            if (productController.allProduct.isEmpty ||
+                productController.allProduct.first.id != company.products.first.id) {
+              productController.setProducts(company.products);
+            }
 
             return SingleChildScrollView(
               child: Column(
@@ -57,7 +65,7 @@ class CompanyProductScreen extends StatelessWidget {
                       ),
                     )
                   else
-                    PartnersProductGrid(products: company.products),
+                    const PartnersProductGrid(),
                   SizedBox(height: 24.h),
                 ],
               ),
@@ -160,12 +168,12 @@ class CompanyProductScreen extends StatelessWidget {
 }
 
 class PartnersProductGrid extends StatelessWidget {
-  final List<ProductModel> products;
-
-  const PartnersProductGrid({super.key, required this.products});
+  const PartnersProductGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ProductController>();
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: Column(
@@ -178,141 +186,41 @@ class PartnersProductGrid extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
           SizedBox(height: 16.h),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12.w,
-              mainAxisSpacing: 12.h,
-              childAspectRatio: 0.65,
+          Obx(
+            () => GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8.w,
+                mainAxisSpacing: 8.h,
+                childAspectRatio: getChildAspectRatio(),
+              ),
+              itemCount: controller.allProduct.length,
+              itemBuilder: (context, index) {
+                final product = controller.allProduct[index];
+                return GestureDetector(
+                  onTap: () => Get.to(
+                    () => ProductDetailsScreen(productId: product.id),
+                    transition: Transition.fade,
+                  )!.then((_) => controller.syncCartState()),
+                  child: ProductCard(
+                    id: product.id,
+                    image: product.image ?? '',
+                    title: product.name,
+                    subtitle: product.description,
+                    price: product.finalPrice,
+                    stock: product.stock,
+                    isFavorite: product.isFavorite,
+                    isInCart: product.isInCart,
+                    onFav: () => controller.toggleFavorite(index),
+                    onAdd: () => controller.toggleCart(index),
+                  ),
+                );
+              },
             ),
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              return PartnerProductCard(product: products[index]);
-            },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class PartnerProductCard extends StatelessWidget {
-  final ProductModel product;
-
-  const PartnerProductCard({super.key, required this.product});
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () =>
-          Get.to(() => ProductDetailsScreen(productId: product.id), transition: Transition.fadeIn),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(
-            color: ColorsApp.withOpacity(ColorsApp.primaryGreenColor, 0.2),
-            width: 1,
-          ),
-          boxShadow: [
-            BoxShadow(color: Colors.grey.shade200, blurRadius: 8, offset: const Offset(0, 2)),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.r),
-                topRight: Radius.circular(16.r),
-              ),
-              child: product.image != null
-                  ? CachedNetworkImage(
-                      imageUrl: product.image!,
-                      width: double.infinity,
-                      height: 120.h,
-                      fit: BoxFit.cover,
-                      errorWidget: (context, error, stackTrace) {
-                        return Container(
-                          width: double.infinity,
-                          height: 120.h,
-                          color: Colors.grey.shade100,
-                          child: Icon(Icons.image, size: 50.sp, color: Colors.grey.shade400),
-                        );
-                      },
-                    )
-                  : Container(
-                      width: double.infinity,
-                      height: 120.h,
-                      color: Colors.grey.shade100,
-                      child: Icon(Icons.image, size: 50.sp, color: Colors.grey.shade400),
-                    ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(12.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  text(
-                    title: product.name,
-                    color: ColorsApp.secondaryBrownColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
-                    textAlign: TextAlign.start,
-                  ),
-                  SizedBox(height: 4.h),
-                  text(
-                    title: product.description,
-                    color: Colors.grey.shade600,
-                    fontSize: 11.sp,
-                    fontWeight: FontWeight.normal,
-                    textAlign: TextAlign.start,
-                  ),
-                  SizedBox(height: 8.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          text(
-                            title: product.finalPrice.toStringAsFixed(0),
-                            color: ColorsApp.primaryGreenColor,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          SizedBox(width: 4.w),
-                          text(
-                            title: 'ج',
-                            color: ColorsApp.primaryGreenColor,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ],
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-                        decoration: BoxDecoration(
-                          color: product.stock > 0
-                              ? ColorsApp.withOpacity(Colors.green, 0.1)
-                              : ColorsApp.withOpacity(Colors.red, 0.1),
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                        child: text(
-                          title: product.stock > 0 ? 'متوفر' : 'نفذ',
-                          color: product.stock > 0 ? Colors.green : Colors.red,
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

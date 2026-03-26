@@ -31,6 +31,7 @@ class SearchControllers extends GetxController {
 
   Future<void> fetchCategories() async {
     try {
+      isLoading.value = true;
       final response = await DioHelper.getData(
         url: EndPoints.categories,
         sendAuthToken: false,
@@ -44,8 +45,13 @@ class SearchControllers extends GetxController {
         if (categoriesResponse.success) {
           categories.value = categoriesResponse.data;
         }
+        isLoading.value = false;
+      } else {
+        printLog(response.statusCode);
+        isLoading.value = false;
       }
     } catch (e) {
+      isLoading.value = false;
       printLog('Error fetching categories: $e');
     }
   }

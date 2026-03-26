@@ -47,6 +47,10 @@ class ProductController extends GetxController {
     }
   }
 
+  void setProducts(List<ProductModel> products) {
+    allProduct.assignAll(products);
+  }
+
   void toggleCart(int index) {
     if (index >= allProduct.length) return;
 

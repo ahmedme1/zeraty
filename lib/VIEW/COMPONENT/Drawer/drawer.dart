@@ -212,17 +212,18 @@ class DrawerContent extends StatelessWidget {
                               }
                             },
                           ),
-                          DrawerItem(
-                            title: 'حذف الحساب',
-                            icon: ImagesApp.deleteAccount,
-                            isCategory: false,
-                            onTap: () {
-                              Get.to(
-                                () => const DeleteAccountScreen(),
-                                transition: Transition.fadeIn,
-                              );
-                            },
-                          ),
+                          if (getToken().isNotEmpty)
+                            DrawerItem(
+                              title: 'حذف الحساب',
+                              icon: ImagesApp.deleteAccount,
+                              isCategory: false,
+                              onTap: () {
+                                Get.to(
+                                  () => const DeleteAccountScreen(),
+                                  transition: Transition.fadeIn,
+                                );
+                              },
+                            ),
                         ],
                       );
                     }),

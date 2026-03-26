@@ -104,8 +104,13 @@ class _ProductImageSliverAppBar extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         background: Container(
           color: Colors.grey.shade200,
-          child: product.image != null
-              ? Image.network(product.image!, fit: BoxFit.cover)
+          child: product.image != null && product.image!.isNotEmpty
+              ? Image.network(
+                  product.image!,
+                  fit: BoxFit.cover,
+                  // cacheWidth: 600,
+                  errorBuilder: (_, __, ___) => Icon(Icons.image, size: 100.sp, color: Colors.grey),
+                )
               : Icon(Icons.image, size: 100.sp, color: Colors.grey),
         ),
       ),

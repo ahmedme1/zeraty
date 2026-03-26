@@ -41,6 +41,13 @@ removeUserData() {
   CacheHelper.removeData(key: userPhone);
 }
 
+double getChildAspectRatio() {
+  final isLoggedIn = getToken().isNotEmpty;
+  final height = isLoggedIn ? 240.h : 200.h;
+
+  return 165.w / height;
+}
+
 final egyptPhoneInputFormatters = <TextInputFormatter>[
   FilteringTextInputFormatter.digitsOnly,
   LengthLimitingTextInputFormatter(11),

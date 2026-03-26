@@ -55,7 +55,7 @@ class CompanyDetailsShimmer extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.centerRight,
                 child: Container(width: 100.w, height: 16.h, color: Colors.grey.shade300),
               ),
             ),
