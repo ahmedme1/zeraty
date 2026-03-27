@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'zeraty-87ea1.firebasestorage.app',
     iosBundleId: 'com.agri.zeraty',
   );
+
 }
